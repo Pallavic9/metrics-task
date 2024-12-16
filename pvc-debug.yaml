@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-debugger
+  namespace: monitoring
+spec:
+  containers:
+    - name: debug-container
+      image: busybox
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: metrics-storage
+          mountPath: /metrics-output
+  volumes:
+    - name: metrics-storage
+      persistentVolumeClaim:
+        claimName: metrics-pvc
