@@ -11,7 +11,7 @@ spec:
         spec:
           containers:
             - name: collect-metrics
-              image: <your-docker-image>:latest  # Replace with your Docker image
+              image: metrics-task:v1.0.0
               imagePullPolicy: IfNotPresent
               volumeMounts:
                 - name: metrics-volume
