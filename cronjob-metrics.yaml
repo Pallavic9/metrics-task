@@ -4,19 +4,20 @@ metadata:
   name: node-metrics-cronjob
   namespace: monitoring
 spec:
-  schedule: "* * * * *"  # Default: Run every minute
+  schedule: "* * * * *"  # Run every minute
   jobTemplate:
     spec:
       template:
         spec:
           containers:
             - name: collect-metrics
-              image: metrics-task:v1.0.0
+              image: pallavic9/metrics:v1.0.0
               imagePullPolicy: IfNotPresent
               volumeMounts:
-                - name: metrics-volume
+                - name: metrics-storage
                   mountPath: /metrics-output
           volumes:
-            - name: metrics-volume
-              emptyDir: {}
+            - name: metrics-storage
+              persistentVolumeClaim:
+                claimName: metrics-pvc
           restartPolicy: OnFailure
